@@ -4,36 +4,58 @@
   <meta charset="UTF-8">
   <title>نتيجة الفرقة الأولى</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
   <style>
-    body {
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
       margin: 0;
+      padding: 0;
+      width: 100%;
+      overflow-x: hidden; /* يمنع الحركة يمين وشمال */
+    }
+
+    body {
       font-family: Arial, sans-serif;
       background: #f2f2f2;
       direction: rtl;
       text-align: center;
     }
-    .box {
+
+    .container {
       max-width: 400px;
-      margin: 80px auto;
+      margin: 60px auto;
       background: #fff;
       padding: 20px;
       border-radius: 8px;
     }
+
+    .logo {
+      width: 100px;
+      margin-bottom: 10px;
+    }
+
     h1 {
-      font-size: 20px;
+      font-size: 18px;
       color: #005bbb;
       margin-bottom: 20px;
     }
+
     input {
       width: 100%;
-      padding: 10px;
+      padding: 12px;
       font-size: 16px;
       margin-bottom: 15px;
       text-align: center;
+      border: 1px solid #ccc;
+      border-radius: 5px;
     }
+
     button {
       width: 100%;
-      padding: 10px;
+      padding: 12px;
       background: #005bbb;
       color: #fff;
       border: none;
@@ -41,18 +63,38 @@
       cursor: pointer;
       border-radius: 5px;
     }
+
     .result {
       margin-top: 20px;
       font-size: 16px;
     }
+
     .success { color: green; }
     .fail { color: red; }
+
+    .note {
+      font-size: 14px;
+      color: #666;
+      margin-top: 15px;
+    }
+
+    .back {
+      margin-top: 20px;
+      display: block;
+      font-size: 14px;
+      color: #005bbb;
+      text-decoration: none;
+    }
   </style>
 </head>
 
 <body>
 
-  <div class="box">
+  <div class="container">
+
+    <!-- اللوجو -->
+    <img src="logo.png" alt="لوجو المعهد" class="logo">
+
     <h1>نتيجة الفرقة الأولى</h1>
 
     <input
@@ -62,9 +104,11 @@
       oninput="this.value=this.value.replace(/[^0-9]/g,'')"
     >
 
-    <button onclick="search()">بحث</button>
+    <button onclick="search()">إظهار النتيجة</button>
 
     <div id="result" class="result"></div>
+
+    <a href="index.html" class="back">⬅ الرجوع للصفحة الرئيسية</a>
   </div>
 
   <script>
@@ -74,7 +118,7 @@
       result.innerHTML = "";
 
       if (!seat) {
-        result.innerHTML = "❗ أدخل رقم الجلوس";
+        result.innerHTML = "❗ من فضلك أدخل رقم الجلوس";
         return;
       }
 
@@ -96,7 +140,7 @@
           <p class="${cls}">
             <strong>النتيجة:</strong> ${student.status}
           </p>
-          <p style="font-size:14px;color:#666">
+          <p class="note">
             ⚠️ هذه النتيجة استرشادية ولا يُعتد بها رسميًا إلا من خلال شئون الطلاب
           </p>
         `;
@@ -108,4 +152,3 @@
 
 </body>
 </html>
-  
