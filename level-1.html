@@ -3,7 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <title>نتيجة الفرقة الأولى</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+  <!-- منع الزوم -->
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
   <style>
     * { box-sizing: border-box; }
@@ -13,13 +16,20 @@
       padding: 0;
       width: 100%;
       overflow-x: hidden;
+      touch-action: pan-y;
     }
 
+    /* منع التحديد والنسخ */
     body {
       font-family: Arial, sans-serif;
       background: #f2f2f2;
       direction: rtl;
       text-align: center;
+
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
     }
 
     .container {
@@ -60,6 +70,7 @@
       font-size: 16px;
       cursor: pointer;
       border-radius: 5px;
+      margin-top: 10px;
     }
 
     .result {
@@ -100,6 +111,24 @@
       color: #005bbb;
       text-decoration: none;
     }
+
+    /* إعدادات الطباعة */
+    @media print {
+      input,
+      button,
+      .back {
+        display: none !important;
+      }
+
+      body {
+        background: #fff;
+      }
+
+      .container {
+        margin: 0;
+        border-radius: 0;
+      }
+    }
   </style>
 </head>
 
@@ -122,6 +151,11 @@
 
     <div id="result" class="result"></div>
 
+    <!-- زر الطباعة -->
+    <button id="printBtn" onclick="window.print()" style="display:none;">
+      🖨️ طباعة النتيجة
+    </button>
+
     <a href="index.html" class="back">⬅ الرجوع للصفحة الرئيسية</a>
   </div>
 
@@ -129,7 +163,10 @@
     async function search() {
       const seat = document.getElementById("seat").value.trim();
       const result = document.getElementById("result");
+      const printBtn = document.getElementById("printBtn");
+
       result.innerHTML = "";
+      printBtn.style.display = "none";
 
       if (!seat) {
         result.innerHTML = "❗ من فضلك أدخل رقم الجلوس";
@@ -168,11 +205,25 @@
         `;
 
         result.innerHTML = html;
+        printBtn.style.display = "block";
 
       } catch (e) {
         result.innerHTML = "حدث خطأ في تحميل البيانات";
       }
     }
+
+    /* منع كليك يمين */
+    document.addEventListener("contextmenu", e => e.preventDefault());
+
+    /* منع اختصارات النسخ */
+    document.addEventListener("keydown", function (e) {
+      if (
+        (e.ctrlKey && ["c","a","s","p","u"].includes(e.key.toLowerCase())) ||
+        e.key === "F12"
+      ) {
+        e.preventDefault();
+      }
+    });
   </script>
 
 </body>
