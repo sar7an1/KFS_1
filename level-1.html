@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>نتيجة الفرقة الأولى</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      direction: rtl;
+      text-align: center;
+    }
+    .box {
+      max-width: 400px;
+      margin: 80px auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+    }
+    h1 {
+      font-size: 20px;
+      color: #005bbb;
+      margin-bottom: 20px;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #005bbb;
+      color: #fff;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    .result {
+      margin-top: 20px;
+      font-size: 16px;
+    }
+    .success { color: green; }
+    .fail { color: red; }
+  </style>
+</head>
+
+<body>
+
+  <div class="box">
+    <h1>نتيجة الفرقة الأولى</h1>
+
+    <input
+      type="text"
+      id="seat"
+      placeholder="أدخل رقم الجلوس"
+      oninput="this.value=this.value.replace(/[^0-9]/g,'')"
+    >
+
+    <button onclick="search()">بحث</button>
+
+    <div id="result" class="result"></div>
+  </div>
+
+  <script>
+    async function search() {
+      const seat = document.getElementById("seat").value.trim();
+      const result = document.getElementById("result");
+      result.innerHTML = "";
+
+      if (!seat) {
+        result.innerHTML = "❗ أدخل رقم الجلوس";
+        return;
+      }
+
+      try {
+        const data = await fetch("level-1.json").then(r => r.json());
+        const student = data.find(s => s.seat === seat);
+
+        if (!student) {
+          result.innerHTML = "❌ رقم الجلوس غير موجود";
+          return;
+        }
+
+        const cls =
+          student.status === "ناجح" ? "success" :
+          student.status === "راسب" ? "fail" : "";
+
+        result.innerHTML = `
+          <p><strong>الاسم:</strong> ${student.name}</p>
+          <p class="${cls}">
+            <strong>النتيجة:</strong> ${student.status}
+          </p>
+          <p style="font-size:14px;color:#666">
+            ⚠️ هذه النتيجة استرشادية ولا يُعتد بها رسميًا إلا من خلال شئون الطلاب
+          </p>
+        `;
+      } catch {
+        result.innerHTML = "حدث خطأ في تحميل البيانات";
+      }
+    }
+  </script>
+
+</body>
+</html>
