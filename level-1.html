@@ -127,7 +127,7 @@
         const student = data.find(s => s.seat === seat);
 
         if (!student) {
-          result.innerHTML = "❌ رقم الجلوس غير موجود";
+          result.innerHTML = "❌ رقم الجلوس غير صحيح ";
           return;
         }
 
@@ -145,7 +145,7 @@
           </p>
         `;
       } catch {
-        result.innerHTML = "حدث خطأ في تحميل البيانات";
+        result.innerHTML = "رقم الجلوس غير صحيح";
       }
     }
   </script>
