@@ -128,7 +128,7 @@
   <script>
     const content = document.getElementById("content");
 
-    fetch("level-2.json")
+    fetch("level-3.json")
       .then(res => res.json())
       .then(data => {
         if (!Array.isArray(data) || data.length === 0) {
@@ -170,7 +170,7 @@
         return;
       }
 
-      fetch("level-2.json")
+      fetch("level-3.json")
         .then(r => r.json())
         .then(data => {
           const student = data.find(
