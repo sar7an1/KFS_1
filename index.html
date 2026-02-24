@@ -33,25 +33,40 @@
     .section {
       background: #fff;
       border-radius: 8px;
-      padding: 20px;
+      padding: 25px 20px;
       margin-bottom: 25px;
     }
 
     .section h2 {
-      margin-bottom: 15px;
+      margin-bottom: 20px;
       font-size: 20px;
       color: #005bbb;
     }
 
+    /* ====== الأزرار (كل 2 جنب بعض) ====== */
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      max-width: 500px;
+      margin: auto;
+    }
+
     .buttons a {
-      display: inline-block;
-      margin: 10px;
-      padding: 12px 20px;
+      display: block;
+      padding: 14px 10px;
       background: #005bbb;
       color: #fff;
       text-decoration: none;
-      border-radius: 6px;
+      border-radius: 8px;
       font-size: 16px;
+    }
+
+    /* موبايل صغير: زرار واحد في السطر */
+    @media (max-width: 480px) {
+      .buttons {
+        grid-template-columns: 1fr;
+      }
     }
 
     footer {
@@ -66,7 +81,7 @@
 
   <div class="container">
 
-    <!-- لوجو -->
+    <!-- اللوجو -->
     <img src="logo.png" alt="لوجو المعهد" class="logo">
 
     <!-- اسم المعهد -->
@@ -75,6 +90,7 @@
     <!-- أزرار النتائج -->
     <div class="section">
       <h2>🔍 الاستعلام عن النتيجة</h2>
+
       <div class="buttons">
         <a href="level-1.html">نتيجة الفرقة الأولى</a>
         <a href="level-2.html">نتيجة الفرقة الثانية</a>
